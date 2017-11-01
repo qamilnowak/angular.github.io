@@ -36,7 +36,7 @@
           <td>{{car.plate}}</td>
           <td>{{car.deliveryDate}}</td>
           <td>{{car.deadline}}</td>
-          <td>{{car.client.firstName}}{{car.client.surname}}</td>
+          <td>{{car.client.firstName}} {{car.client.surname}}</td>
           <td>{{car.cost}}</td>
           <td>ACTION PLACEHOLDER</td>
         </tr>
@@ -52,5 +52,7 @@
     </div>
 
   </div>
+
+  <app-totalcost [totalCost]="totalCost"></app-totalcost>
 
 </div>
