@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
+import {Car} from '../models/car';
+
 @Component({
   selector: 'app-cars-list',
   templateUrl: './cars-list.component.html',
   styleUrls: ['./cars-list.component.less']
 })
 export class CarsListComponent implements OnInit {
-  cars = [
+  cars: Car[]= [
     {
       id: 1,
       model: 'Mazda Rx7',

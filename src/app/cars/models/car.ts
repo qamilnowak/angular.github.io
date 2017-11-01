@@ -1,8 +1,7 @@
 import {Client} from './client';
 
-export interface Car{
-
-  id: number,
+export interface Car {
+  id: number;
   model: string;
   plate: string;
   deliveryDate: string;
