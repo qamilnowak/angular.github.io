@@ -1,6 +1,7 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 
 import {Car} from '../models/car';
+import {TotalcostComponent} from '../totalcost/totalcost.component';
 
 @Component({
   selector: 'app-cars-list',
@@ -8,7 +9,8 @@ import {Car} from '../models/car';
   styleUrls: ['./cars-list.component.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class CarsListComponent implements OnInit {
+export class CarsListComponent implements OnInit, AfterViewInit {
+  @ViewChild('totalCostRef') totalCostRef: TotalcostComponent;
   totalCost: number;
   grossCost: number;
   cars: Car[] = [
@@ -51,13 +53,20 @@ export class CarsListComponent implements OnInit {
       cost: 2800,
       isFullyDamaged: true
     }
-  ]
+  ];
 
   constructor() {
   }
 
   ngOnInit() {
     this.countTotalCost();
+  }
+
+  ngAfterViewInit() {
+    this.totalCostRef.showGross();
+  }
+  showGross(): void {
+    this.totalCostRef.showGross();
   }
 
   countTotalCost(): void {
