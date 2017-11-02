@@ -50,9 +50,13 @@
         </div>
       </ng-template>
     </div>
-
   </div>
-
-  <app-totalcost [totalCost]="totalCost"></app-totalcost>
-
+  <app-totalcost [totalCost]="totalCost" (shownGross)="onShownGross($event)"></app-totalcost>
+  <div class="row" *ngIf="grossCost">
+    <div class="col-sm-12">
+      <div class="total-cost">
+        <p class="text-right">TOTAL GROSS COST: {{grossCost}} PLN</p>
+      </div>
+    </div>
+  </div>
 </div>
