@@ -6,6 +6,8 @@ import {CarsModule} from './cars/cars.module';
 import {HttpModule} from '@angular/http';
 import {CarsService} from './cars/cars.service';
 import {CoreModule} from './core-module/core.module';
+import {RouterModule} from '@angular/router';
+import {CarsListComponent} from './cars/cars-list/cars-list.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import {CoreModule} from './core-module/core.module';
     FormsModule,
     HttpModule,
     CarsModule,
-    CoreModule
+    CoreModule,
+    RouterModule.forRoot([{path: 'cars', component: <any>CarsListComponent}])
   ],
   providers: [CarsService],
   bootstrap: [AppComponent]
