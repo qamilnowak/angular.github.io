@@ -92,7 +92,8 @@
         <div class="col-sm-4">
           <label>Plate</label>
           <input formControlName="plate" type="text" class="form-control" placeholder="plate">
-          <p *ngIf="!carForm.get('plate').valid && carForm.get('plate').dirty" class="error">This field is required and must contain 3-7 characters </p>
+          <p *ngIf="!carForm.get('plate').valid && carForm.get('plate').dirty" class="error">This field is required and
+            must contain 3-7 characters </p>
         </div>
       </div>
       <div class="row form group">
@@ -127,16 +128,22 @@
       <div class="row form group">
         <div class="col-sm-4">
           <label>Client First Name</label>
-          <input formControlName="clientFirstName" type="text" class="form-control" placeholder="model">
+          <input formControlName="clientFirstName" type="text" class="form-control" placeholder="first name">
         </div>
         <div class="col-sm-4">
           <label>Client Last Name</label>
-          <input formControlName="clientSurname" type="text" class="form-control" placeholder="type">
+          <input formControlName="clientSurname" type="text" class="form-control" placeholder="last name">
+        </div>
+        <div class="col-sm-4">
+          <label>Year</label>
+          <input formControlName="year" type="text" class="form-control" placeholder="year">
         </div>
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <button [disabled]="carForm.invalid" type="submit" class="btn btn-primary float-right">Add car</button>
+          <br />
+          <button [disabled]="carForm.invalid" type="submit" (click)="addCar()" class="btn btn-primary float-right">Add car</button>
+          <button  type="submit" (click)="carForm.reset()" class="btn btn-deafult float-right">Reset</button>
         </div>
       </div>
     </form>

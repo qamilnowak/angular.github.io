@@ -42,6 +42,7 @@ export class CarsListComponent implements OnInit, AfterViewInit {
       clientSurname: '',
       cost: '',
       isFullyDamaged: '',
+      year: '',
     });
   }
 
@@ -51,7 +52,11 @@ export class CarsListComponent implements OnInit, AfterViewInit {
       this.countTotalCost();
     });
   }
-
+  addCar () {
+    this.carsService.addCar(this.carForm.value).subscribe((cars) => {
+      this.loadCars();
+    });
+  }
   ngAfterViewInit() {
     this.totalCostRef.showGross();
   }

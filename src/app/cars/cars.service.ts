@@ -3,9 +3,11 @@ import {Observable} from 'rxjs/Observable';
 import {Car} from './models/car';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
+
 @Injectable()
 export class CarsService {
-private apiUrl = 'http://loopback-rest-api.herokuapp.com/api/cars';
+  private apiUrl = 'http://loopback-rest-api.herokuapp.com/api/cars';
+
   constructor(private http: Http) {
   }
 
@@ -20,4 +22,8 @@ private apiUrl = 'http://loopback-rest-api.herokuapp.com/api/cars';
       .map((res) => res.json());
   }
 
+  addCar(data): Observable<Car> {
+    return this.http.post(this.apiUrl, data)
+      .map((res) => res.json());
+  }
 }
