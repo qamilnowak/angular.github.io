@@ -25,6 +25,10 @@ export class CarsService {
     return this.http.put(this.apiUrl + `/${id}`, data)
       .map((res) => res.json());
   }
+  removeCar(id: number): Observable<Car> {
+    return this.http.delete(this.apiUrl + `/${id}`)
+      .map((res) => res.json());
+  }
 
 
   addCar(data): Observable<Car> {
