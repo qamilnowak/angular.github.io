@@ -5,6 +5,8 @@ import {TotalcostComponent} from '../totalcost/totalcost.component';
 import {CarsService} from '../cars.service';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CostSharedService} from '../cost-shared.service';
+
 
 @Component({
   selector: 'app-cars-list',
@@ -21,6 +23,7 @@ export class CarsListComponent implements OnInit, AfterViewInit {
 
   constructor(private carsService: CarsService,
               private formBuilder: FormBuilder,
+              private costSharedService: CostSharedService,
               private router: Router) {
   }
 
@@ -57,6 +60,7 @@ export class CarsListComponent implements OnInit, AfterViewInit {
     this.carsService.getCars().subscribe((cars) => {
       this.cars = cars;
       this.countTotalCost();
+      this.costSharedService.shareCost(this.totalCost);
     });
   }
 
