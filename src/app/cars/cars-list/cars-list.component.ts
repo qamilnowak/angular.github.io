@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren, ViewEncapsulation} from '@angular/core';
 
 import {Car} from '../models/car';
 import {TotalcostComponent} from '../totalcost/totalcost.component';
@@ -6,6 +6,7 @@ import {CarsService} from '../cars.service';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CostSharedService} from '../cost-shared.service';
+import {CarTableRowComponent} from '../car-table-row/car-table-row.component';
 
 
 @Component({
@@ -16,6 +17,7 @@ import {CostSharedService} from '../cost-shared.service';
 })
 export class CarsListComponent implements OnInit, AfterViewInit {
   @ViewChild('totalCostRef') totalCostRef: TotalcostComponent;
+  @ViewChildren(CarTableRowComponent) carRows: QueryList<CarTableRowComponent>;
   totalCost: number;
   grossCost: number;
   cars: Car[];
@@ -32,6 +34,7 @@ export class CarsListComponent implements OnInit, AfterViewInit {
     this.carForm = this.buildCarForm();
   }
 
+
   buildCarForm() {
     return this.formBuilder.group({
       model: ['', Validators.required],
@@ -47,6 +50,17 @@ export class CarsListComponent implements OnInit, AfterViewInit {
       isFullyDamaged: '',
       year: '',
     });
+  }
+
+  togglePlateValidity() {
+    const damageControl = this.carForm.get('isFullyDamaged');
+    const plateControl = this.carForm.get('plate');
+    if (damageControl.value) {
+      plateControl.clearValidators();
+    }else {
+      plateControl.setValidators([Validators.required, Validators.minLength(3), Validators.maxLength(7)]);
+    }
+    plateControl.updateValueAndValidity();
   }
 
   onRemovedCar(car: Car) {
@@ -71,6 +85,12 @@ export class CarsListComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.totalCostRef.showGross();
+    this.carRows.changes.subscribe(() => {
+      if (this.carRows.first.car.clientSurname === 'Kowalski') {
+        console.log('Warning, Client Kowalski is next in queue');
+      }
+    });
+
   }
 
   goToCarDetails(car: Car) {
