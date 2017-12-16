@@ -131,6 +131,21 @@
           <input formControlName="year" type="text" class="form-control" placeholder="year">
         </div>
       </div>
+      <div formGroupName="parts" class="row form group part-group">
+        <div class="col-sm-4">
+          <label>Part name</label>
+          <input formControlName="name" type="text" class="form-control" placeholder="first name">
+        </div>
+        <div class="col-sm-4">
+          <label>Is part in stock
+            <input formControlName="inStock" type="checkbox">
+          </label>
+        </div>
+        <div class="col-sm-4">
+          <label>Part price</label>
+          <input formControlName="price" type="text" class="form-control" placeholder="Part price">
+        </div>
+      </div>
       <div class="row">
         <div class="col-sm-12">
           <br/>
@@ -141,6 +156,8 @@
         </div>
       </div>
     </form>
+
+    <pre>{{carForm.value | json}}}</pre>
     <!--- <pre> {{carForm.value | json}}</pre>
      <pre> Stan walidacji model:{{carForm.get('model').valid | json}}</pre>
      <pre> Stan walidacji plate:{{carForm.get('plate').valid | json}}</pre> --->
