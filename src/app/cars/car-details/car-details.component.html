@@ -44,10 +44,10 @@
         <input formControlName="power" type="text" class="form-control" placeholder="Power">
       </div>
       <div class="col-sm-4">
-        <label>Cost</label>
-        <input formControlName="cost" type="text" class="form-control" placeholder="Cost">
+        <label>Year</label>
+        <input formControlName="year" type="text" class="form-control" placeholder="year">
       </div>
-      <div class="col-sm-4">
+    <div class="col-sm-4">
         <label>Is car fully damaged
           <input formControlName="isFullyDamaged" type="checkbox">
         </label>
@@ -61,12 +61,36 @@
       <div class="col-sm-4">
         <label>Client Last Name</label>
         <input formControlName="clientSurname" type="text" class="form-control" placeholder="last name">
+      </div></div>
+
+      <div formArrayName="parts" *ngFor="let part of parts.controls; let i = index">
+        <div [formGroupName]="i" class="part-group">
+          <div class="row">
+            <div class="col-12">
+              <h5>{{i + 1}}) {{part.value.name}} {{part.value.price | currency:'PLN':true}}
+                <span (click)="removePart(i)" class="btn btn-danger float-right btn-margin">Delete</span>
+              </h5>
+            </div>
+          </div>
+          <div class="row form group part-group">
+            <div class="col-sm-4">
+              <label>Part name</label>
+              <input formControlName="name" type="text" class="form-control" placeholder="first name">
+            </div>
+            <div class="col-sm-4">
+              <label>Part price</label>
+              <input formControlName="price" type="text" class="form-control" placeholder="Part price">
+            </div>
+            <div class="col-sm-4">
+              <label>Is part in stock
+                <input formControlName="inStock" type="checkbox">
+              </label>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-sm-4">
-        <label>Year</label>
-        <input formControlName="year" type="text" class="form-control" placeholder="year">
-      </div>
-    </div>
+      <button class="btn btn-primary" (click)="addPart()">Add part</button>
+
     <div class="row">
       <div class="col-sm-12">
         <br />

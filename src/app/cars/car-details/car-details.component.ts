@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CarsService} from '../cars.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Car} from '../models/car';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-car-details',
@@ -12,6 +12,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class CarDetailsComponent implements OnInit {
   car: Car;
   carForm: FormGroup;
+
   constructor(private carsService: CarsService,
               private formBuilder: FormBuilder,
               private router: Router,
@@ -24,6 +25,7 @@ export class CarDetailsComponent implements OnInit {
   }
 
   buildCarForm() {
+    let parts = this.car.parts.map((part) => this.formBuilder.group(part));
     return this.formBuilder.group({
       model: [this.car.model, Validators.required],
       type: this.car.type,
@@ -34,15 +36,44 @@ export class CarDetailsComponent implements OnInit {
       power: this.car.power,
       clientFirstName: this.car.clientFirstName,
       clientSurname: this.car.clientSurname,
-      cost: this.car.cost,
       isFullyDamaged: this.car.isFullyDamaged,
       year: this.car.year,
+      parts: this.formBuilder.array(parts)
     });
   }
-  updateCar () {
-    this.carsService.updateCar(this.car.id, this.carForm.value).subscribe((cars) => {
+
+  updateCar() {
+    let carFormData = Object.assign({}, this.carForm.value);
+    carFormData.cost = this.getPartsCost(carFormData.parts);
+    this.carsService.updateCar(this.car.id, carFormData).subscribe((cars) => {
       this.router.navigate(['/cars']);
     });
+  }
+
+  getPartsCost(parts) {
+    return parts.reduce((prev, nextPart) => {
+      return parseFloat(prev) + parseFloat(nextPart.price);
+    }, 0);
+  }
+
+  buildParts(): FormGroup {
+    return this.formBuilder.group({
+      name: '',
+      inStock: true,
+      price: ''
+    });
+  }
+
+  get parts(): FormArray {
+    return <FormArray>this.carForm.get('parts');
+  }
+
+  addPart(): void {
+    this.parts.push(this.buildParts());
+  }
+
+  removePart(i): void {
+    this.parts.removeAt(i);
   }
 
   loadCar() {
