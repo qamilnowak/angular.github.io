@@ -137,40 +137,42 @@
         <div [formGroupName]="i" class="part-group">
           <div class="row">
             <div class="col-12">
-              <h5>{{i + 1}}) {{part.value.name}} {{part.value.price | currency:'PLN':true}}</h5>
+              <h5>{{i + 1}}) {{part.value.name}} {{part.value.price | currency:'PLN':true}}
+                <span (click)="removePart(i)" class="btn btn-danger float-right btn-margin">Delete</span>
+              </h5>
             </div>
           </div>
-              <div class="row form group part-group">
-                <div class="col-sm-4">
-                  <label>Part name</label>
-                  <input formControlName="name" type="text" class="form-control" placeholder="first name">
-                </div>
-                <div class="col-sm-4">
-                  <label>Is part in stock
-                    <input formControlName="inStock" type="checkbox">
-                  </label>
-                </div>
-                <div class="col-sm-4">
-                  <label>Part price</label>
-                  <input formControlName="price" type="text" class="form-control" placeholder="Part price">
-                </div>
-              </div>
+          <div class="row form group part-group">
+            <div class="col-sm-4">
+              <label>Part name</label>
+              <input formControlName="name" type="text" class="form-control" placeholder="first name">
             </div>
-          </div>
-
-
-        <button class="btn btn-primary" (click)="addPart()">Add part</button>
-
-        <div class="row">
-          <div class="col-sm-12">
-            <br/>
-            <button [disabled]="carForm.invalid" type="submit" (click)="addCar()" class="btn btn-primary float-right">
-              Add
-              car
-            </button>
-            <button type="submit" (click)="carForm.reset()" class="btn btn-deafult float-right">Reset</button>
+            <div class="col-sm-4">
+              <label>Is part in stock
+                <input formControlName="inStock" type="checkbox">
+              </label>
+            </div>
+            <div class="col-sm-4">
+              <label>Part price</label>
+              <input formControlName="price" type="text" class="form-control" placeholder="Part price">
+            </div>
           </div>
         </div>
+      </div>
+
+
+      <button class="btn btn-primary" (click)="addPart()">Add part</button>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <br/>
+          <button [disabled]="carForm.invalid" type="submit" (click)="addCar()" class="btn btn-primary float-right">
+            Add
+            car
+          </button>
+          <button type="submit" (click)="carForm.reset()" class="btn btn-deafult float-right">Reset</button>
+        </div>
+      </div>
     </form>
 
     <pre>{{carForm.value | json}}}</pre>
