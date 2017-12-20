@@ -9,6 +9,7 @@ import {CoreModule} from './core-module/core.module';
 import {AppRoutingModule} from './app-routing.module';
 import {LoginRoutingModule} from './login/login-routing.module';
 import {LoginModule} from './login/login.module';
+import {AuthService} from './auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import {LoginModule} from './login/login.module';
     CarsRoutingModule,
     LoginRoutingModule
   ],
-  providers: [CarsService],
+  providers: [CarsService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
