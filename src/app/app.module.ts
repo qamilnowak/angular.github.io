@@ -12,6 +12,7 @@ import {LoginModule} from './login/login.module';
 import {AuthService} from './auth/auth.service';
 import {AuthGuard} from './auth/auth.guard';
 import {LayoutService} from './shared-module/services/layout.service';
+import {AuthCanLoadGuard} from './auth/auth-can-load.guard';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import {LayoutService} from './shared-module/services/layout.service';
     AppRoutingModule
 
   ],
-  providers: [CarsService, AuthService, AuthGuard, LayoutService],
+  providers: [CarsService, AuthService, AuthGuard, LayoutService, AuthCanLoadGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {
