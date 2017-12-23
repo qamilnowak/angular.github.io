@@ -10,14 +10,16 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {IncomeTaxComponent} from './totalcost/income-tax/income-tax.component';
 import {CostSharedService} from './cost-shared.service';
 import { CarTableRowComponent } from './car-table-row/car-table-row.component';
+import {CarsRoutingModule} from './cars-routing.module';
+import { CarsComponent } from './cars.component';
 
 
 @NgModule({
   imports: [
-    CommonModule, SharedModule, RouterModule, ReactiveFormsModule
+    CommonModule, SharedModule, RouterModule, ReactiveFormsModule, CarsRoutingModule
   ],
   exports: [CarsListComponent],
   providers: [CarResolve,  CostSharedService],
-  declarations: [CarsListComponent, TotalcostComponent, CarDetailsComponent, IncomeTaxComponent, CarTableRowComponent]
+  declarations: [CarsListComponent, TotalcostComponent, CarDetailsComponent, IncomeTaxComponent, CarTableRowComponent, CarsComponent]
 })
-export class CarsModule { }
+export class CarsModule {}
