@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {AuthService} from '../auth/auth.service';
 import {Router} from '@angular/router';
+import {LayoutService} from '../shared-module/services/layout.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,9 @@ export class LoginComponent {
   login = '';
   password = '';
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService,
+              private layoutService: LayoutService,
+              private router: Router) {
   }
 
   onSubmit() {
@@ -20,7 +23,7 @@ export class LoginComponent {
   }
 
   private onSubmitSuccess() {
-    this.router.navigate(['/cars']);
+    this.router.navigate(['/cars']).then(() => this.layoutService.showSidebar());
   }
 
   private onSubmitFailure() {
