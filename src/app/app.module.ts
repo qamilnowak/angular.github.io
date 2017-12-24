@@ -14,10 +14,11 @@ import {AuthGuard} from './guards/auth.guard';
 import {LayoutService} from './shared-module/services/layout.service';
 import {AuthCanLoadGuard} from './guards/auth-can-load.guard';
 import {FromCanDeactivateGuard} from './guards/form-can-deactivate.guard';
+import {SharedModule} from './shared-module/shared.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +26,8 @@ import {FromCanDeactivateGuard} from './guards/form-can-deactivate.guard';
     HttpModule,
     LoginModule,
     CoreModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SharedModule
 
   ],
   providers: [CarsService, AuthService, AuthGuard, LayoutService, AuthCanLoadGuard, FromCanDeactivateGuard],
