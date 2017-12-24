@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Route, RouterModule} from '@angular/router';
-import {AuthCanLoadGuard} from './auth/auth-can-load.guard';
+import {AuthCanLoadGuard} from './guards/auth-can-load.guard';
 
 
 const APP_ROUTES: Route[] = [

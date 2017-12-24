@@ -8,6 +8,7 @@ import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CostSharedService} from '../cost-shared.service';
 import {CarTableRowComponent} from '../car-table-row/car-table-row.component';
 import {CsValidators} from '../../shared-module/validators/cs-validators';
+import {CanComponentDeactivate} from '../../guards/form-can-deactivate.guard';
 
 
 @Component({
@@ -16,7 +17,7 @@ import {CsValidators} from '../../shared-module/validators/cs-validators';
   styleUrls: ['./cars-list.component.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class CarsListComponent implements OnInit, AfterViewInit {
+export class CarsListComponent implements OnInit, AfterViewInit, CanComponentDeactivate {
   @ViewChild('totalCostRef') totalCostRef: TotalcostComponent;
   @ViewChildren(CarTableRowComponent) carRows: QueryList<CarTableRowComponent>;
   totalCost: number;
@@ -24,11 +25,12 @@ export class CarsListComponent implements OnInit, AfterViewInit {
   cars: Car[];
   carForm: FormGroup;
 
+
   constructor(private carsService: CarsService,
               private formBuilder: FormBuilder,
               private costSharedService: CostSharedService,
               private router: Router) {
-  }a
+  }
 
   ngOnInit() {
     this.loadCars();
@@ -99,7 +101,7 @@ export class CarsListComponent implements OnInit, AfterViewInit {
   }
 
   addCar() {
-    let carFormData = Object.assign({}, this.carForm.value);
+    const carFormData = Object.assign({}, this.carForm.value);
     carFormData.cost = this.getPartsCost(carFormData.parts);
     this.carsService.addCar(carFormData).subscribe(() => {
       this.loadCars();
@@ -107,7 +109,7 @@ export class CarsListComponent implements OnInit, AfterViewInit {
   }
 
   getPartsCost(parts) {
-    return parts.reduce ((prev, nextPart) =>{
+    return parts.reduce ((prev, nextPart) => {
       return parseFloat(prev) + parseFloat(nextPart.price);
     }, 0);
   }
@@ -139,5 +141,10 @@ export class CarsListComponent implements OnInit, AfterViewInit {
   onShownGross(grossCost: number): void {
     this.grossCost = grossCost;
   }
-
+  canDeactivate() {
+    if (!this.carForm.dirty) {
+      return true;
+    }
+    return window.confirm('Discard changes ?');
+  }
 }

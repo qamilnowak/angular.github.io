@@ -10,9 +10,10 @@ import {AppRoutingModule} from './app-routing.module';
 
 import {LoginModule} from './login/login.module';
 import {AuthService} from './auth/auth.service';
-import {AuthGuard} from './auth/auth.guard';
+import {AuthGuard} from './guards/auth.guard';
 import {LayoutService} from './shared-module/services/layout.service';
-import {AuthCanLoadGuard} from './auth/auth-can-load.guard';
+import {AuthCanLoadGuard} from './guards/auth-can-load.guard';
+import {FromCanDeactivateGuard} from './guards/form-can-deactivate.guard';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import {AuthCanLoadGuard} from './auth/auth-can-load.guard';
     AppRoutingModule
 
   ],
-  providers: [CarsService, AuthService, AuthGuard, LayoutService, AuthCanLoadGuard],
+  providers: [CarsService, AuthService, AuthGuard, LayoutService, AuthCanLoadGuard, FromCanDeactivateGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {
